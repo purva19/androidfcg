@@ -3,5 +3,6 @@
 
     <string name="hello">Hello World, FaultCodeGuideActivity!</string>
     <string name="app_name">FaultCodeGuide</string>
+    <string name="Button_Title">Next</string>
 
 </resources>
