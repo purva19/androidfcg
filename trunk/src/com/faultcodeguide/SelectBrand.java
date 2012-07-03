@@ -29,10 +29,7 @@ public class SelectBrand extends ListActivity {
 	    	System.out.println("I am in the Main");
     	 
 	    	Toast.makeText(SelectBrand.this, "Success", Toast.LENGTH_SHORT).show();
-	    	
-	    	
-	    	
-	    	
+
 	    	db = (new DataBaseHelper(this)).getReadableDatabase();
 	    	c=db.query("brand", null, null, null,null,null,null);
 		  	
@@ -68,7 +65,7 @@ public class SelectBrand extends ListActivity {
          public void onItemClick(AdapterView<?> parent, View view,
              int position, long id) {
         	        	
-        	 	System.out.println("id  :");
+        	 	System.out.println(" Brand id is  :");
        	        System.out.println(id);
        	           
        	     String product = ((TextView) view).getText().toString();  
@@ -78,23 +75,22 @@ public class SelectBrand extends ListActivity {
        	        Cursor cursor = (Cursor) adapter.getItem(position);
        	        String brand_name= cursor.getString(1);
        	        System.out.println("Brand name"+brand_name);
-       	        
-       	        
-       	     Cursor c = (Cursor) adapter.getItem(position);   
-       	     int brand_id= c.getInt(c.getColumnIndex("_id"));
-         	System.out.printf("Brand id is %d",brand_id);
+       	    
        	        
        	        /*
        	     	String brand_name= cursor.getString(1);
        	     	System.out.printf("Brand id is name"+brand_name);
        	     */
+       	    Intent intent = new Intent(SelectBrand.this,SelectSeries.class);
+       	    
+       	    //System.out.println(" printing the series ");
+         	adapter.getItem(position);
+     	   	intent.putExtra("giri_id", cursor.getInt(cursor.getColumnIndex("_id")));
+     	   	//System.out.println(" printing the id ");
+     	   	startActivity(intent);
+         	
        	     	
-         	Intent intent = new Intent();
-        	System.out.println(" printing the series ");
-    	   	adapter.getItem(position);
-    	   	intent.putExtra("brand_id", cursor.getInt(cursor.getColumnIndex("_id")));
-    	   	System.out.println(" printing the id ");
-    	   	startActivity(intent);
+       		
          }
        });
 	   }  
