@@ -20,6 +20,8 @@
         </activity>
         
         <activity android:name="SelectBrand"></activity>
+        <activity android:name="SelectSeries"></activity>
+        <activity android:name="SelectErrorcode"></activity>
     </application>
 
 </manifest>
