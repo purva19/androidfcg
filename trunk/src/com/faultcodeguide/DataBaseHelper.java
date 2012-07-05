@@ -45,7 +45,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
     	if(dbExist){
     		//do nothing - database already exist
-    		System.out.print("DATABVASE IS A;ready THERE");
+    		System.out.print("DATABASE IS Already THERE");
     		
     		
     	}else{
