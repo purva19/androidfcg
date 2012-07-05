@@ -1,5 +1,8 @@
 package com.faultcodeguide;
 
+
+
+
 import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,6 +17,8 @@ public class SelectErrorcode extends ListActivity{
 	protected SQLiteDatabase db;
 	protected Cursor cursor;
 	protected ListAdapter adapter;
+	
+	int series_id;
 	
 	public void onCreate(Bundle savedInstanceState) {
 	    	super.onCreate(savedInstanceState);
@@ -43,10 +48,24 @@ public class SelectErrorcode extends ListActivity{
 			//Toast.makeText(this, giri_id+"brand_id IS   :"+giri_id , Toast.LENGTH_LONG).show();
 	    	//System.out.println("BRAND ID in selectErrorcode "+giri_id);
 	    	//System.out.println("Series ID in selectErrorcode "+series_id);
-	    	
+	    	 
 	    	setTitle("List of Possible error Codes");
 	    	
-	    	c=db.rawQuery("SELECT * FROM brand_2_errorcode WHERE series_id = '7' ", null);
+//	    	c=db.rawQuery("SELECT * FROM brand_2_errorcode WHERE series_id = '7' ", null);
+	    	
+	    	String bid=Integer.toString(brand_id);
+	    	String s_id=Integer.toString(recieved_id);
+
+	    	s_id="'"+s_id+"'";
+	    	String table_name = "brand_" + bid+ "_errorcode";
+	    	String q="SELECT * FROM " +table_name +" WHERE series_id="+s_id;
+	    	System.out.println(q);		
+			c = db.rawQuery(q,null);
+	    	///c=db.rawQuery("SELECT * FROM brand_2_errorcode WHERE series_id = '7' ", null);
+	    	
+			adapter = new SimpleCursorAdapter(this, R.layout.list_view, c, new String [] {"display_panel_code"}, new int[] {R.id.name});
+			setListAdapter(adapter);
+			db.close();	
 	    	System.out.println("Printing the value of c " +c);
 	    	
 	    	if (c.moveToFirst())
