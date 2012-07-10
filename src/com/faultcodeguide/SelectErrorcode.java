@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 public class SelectErrorcode extends ListActivity{
 	Cursor c=null;
+	Cursor d=null;
 	protected SQLiteDatabase db;
 	protected Cursor cursor;
 	protected ListAdapter adapter;
@@ -61,8 +62,27 @@ public class SelectErrorcode extends ListActivity{
 	    	String q="SELECT * FROM " +table_name +" WHERE series_id="+s_id;
 	    	System.out.println(q);		
 			c = db.rawQuery(q,null);
-	    	///c=db.rawQuery("SELECT * FROM brand_2_errorcode WHERE series_id = '7' ", null);
-	    	
+	    	d=db.rawQuery("SELECT parent_series_id FROM series WHERE _id = '7' ", null);
+	    	System.out.println("Printing the Parent_series_id");
+	    	System.out.println(d);
+	    	if (d.moveToFirst())
+		  	{
+			do {
+					String sid= d.getString(0);
+					String parent_series_id= d.getString(0);
+				
+					System.out.println("parent_series_id: " + parent_series_id);
+					
+					
+				int id=Integer.parseInt( sid );
+				//System.out.println("String: " + sid);
+				//System.out.println("Integer: " + id);
+				//String s1= d.getString(8);
+	 			//System.out.println("parent_series_id: " + s1);
+			  	
+			} while (d.moveToNext());
+		  }
+			
 			adapter = new SimpleCursorAdapter(this, R.layout.list_view, c, new String [] {"display_panel_code"}, new int[] {R.id.name});
 			setListAdapter(adapter);
 			db.close();	
