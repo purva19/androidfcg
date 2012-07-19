@@ -56,11 +56,11 @@ public class SelectSeries extends ListActivity{
 				
 				
 				int id=Integer.parseInt( sid );
-				System.out.println("String: " + sid);
-			  System.out.println("Integer: " + id);
-			  String s1= c.getString(1);
- 			 System.out.println("brand_id: " + s1);
-		  	System.out.println("I m in do while of series");
+//				System.out.println("String: " + sid);
+//			  System.out.println("Integer: " + id);
+//			  String s1= c.getString(1);
+// 			 System.out.println("brand_id: " + s1);
+//		  	System.out.println("I m in do while of series");
   			 
 		} while (c.moveToNext());
     
