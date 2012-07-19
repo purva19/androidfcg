@@ -1,181 +1,282 @@
 package com.faultcodeguide;
 
-
-
-
 import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 public class SelectErrorcode extends ListActivity{
-	Cursor c=null;
-	Cursor d=null;
-	Cursor g=null;
+ 
 	protected SQLiteDatabase db;
 	protected Cursor cursor;
+	protected Cursor parentCursor;
+	protected ListAdapter adapter1;
 	protected ListAdapter adapter;
 	protected String parent_series_id;
-	protected String parent_brand_id;
 	
+	protected String error_code_brand_id;
+	protected ArrayList<String []> arrayListErrorCodesInfo = new ArrayList<String[]>(); 
+ 	protected List<String> errorcode_list = new ArrayList<String>();
+ 	protected String [] data =new String [7];
+ 	
 	int series_id;
 	
 	public void onCreate(Bundle savedInstanceState) {
 	    	super.onCreate(savedInstanceState);
 	    	db = (new DataBaseHelper(this)).getReadableDatabase();
 	    	Intent intent = getIntent();
-	    	int recieved_id=intent.getExtras().getInt("sending_series_id");
-	    	System.out.println("printing the series_id in the SelectErrorcode");
-	    	System.out.println(recieved_id);
-	    	
-	    	int brand_id=intent.getExtras().getInt("sending_brand_id");
-	    	//String recived_series_name=intent.getExtras().getString("sending_series_name");
-	    	
-	    	
-	    	
-	    	//System.out.println("Recvieved series name");
-	    	//System.out.println(recived_series_name);
-	    	
-	    	
-	    	System.out.println("printing the brand_id in the SelectErrorcode");
-	    	System.out.println(brand_id);
-	    	
-	    	//int brand_id=intent.getExtras().getInt("brand_id");
-			//int series_id=intent.getExtras().getInt("series_id");
-			Toast.makeText(this, "DATA ENTERED", Toast.LENGTH_LONG).show();
-			System.out.println("I am in Selecy Errorcode");
-			//String giri_id = getIntent().getStringExtra("brand_id");
-			//Toast.makeText(this, giri_id+"brand_id IS   :"+giri_id , Toast.LENGTH_LONG).show();
-	    	//System.out.println("BRAND ID in selectErrorcode "+giri_id);
-	    	//System.out.println("Series ID in selectErrorcode "+series_id);
-	    	 
-	    	setTitle("List of Possible error Codes");
-	    	
-//	    	c=db.rawQuery("SELECT * FROM brand_2_errorcode WHERE series_id = '7' ", null);
-	    	
-	    	String bid=Integer.toString(brand_id);
-	    	String s_id=Integer.toString(recieved_id);
+	    	int series_id_int=intent.getExtras().getInt("sending_series_id");
+	    	int brand_id_int=intent.getExtras().getInt("sending_brand_id");
 
-	    	s_id="'"+s_id+"'";
-	    	String table_name = "brand_" + bid+ "_errorcode";
-	    	String q="SELECT * FROM " +table_name +" WHERE series_id="+s_id;
-	    	System.out.println(q);		
-			c = db.rawQuery(q,null);
-	    	///d=db.rawQuery("SELECT parent_series_id FROM series WHERE _id = +s_id ", null);
+	    	System.out.println("**************** ");
 	    	
- 			String series_id=Integer.toString(recieved_id);
-	    	series_id= "'"+series_id+"'";
-	    	String stable_name = "series" ;
-	    	String w="SELECT parent_series_id FROM " + stable_name +" WHERE _id =" +s_id;
-	    	System.out.println(w);
-	    	d=db.rawQuery(w, null);
+	    	String brand_id_string=Integer.toString(brand_id_int);
+	    	String series_id_string=Integer.toString(series_id_int);
 	    	
-	    	System.out.println("Printing the Parent_series_id");
-	    	System.out.println(d);
-	    	if (d.moveToFirst())
-		  	{
-			do {
-					String sid= d.getString(0);
-				 parent_series_id= d.getString(0);
-				
-					System.out.println("parent_series_id: " + parent_series_id);
-					
-					
-				//int id=Integer.parseInt( sid );
-				//System.out.println("String: " + sid);
-				//System.out.println("Integer: " + id);
-				//String s1= d.getString(8);
-	 			//System.out.println("parent_series_id: " + s1);
-			  	
-			} while (d.moveToNext());
-		  }
-			
-	    	if (parent_series_id == series_id)
+	    	buildErrorCodetable (series_id_string , brand_id_string );
+
+	    	System.out.println("Array List Size ");
+	    	System.out.println(arrayListErrorCodesInfo.size());
+		    	
+	    	///*INITIALIZATION
+	    	int loopParentSeriesId=getParentSeriesId(series_id_string);
+	    	int loopSeriesId=series_id_int;
+	    	
+	    	///PROCESS
+	    	while (loopParentSeriesId!=loopSeriesId)
 	    	{
-	    		System.out.println("the display_panal_code");
-	    		System.out.println(q);
-	    	}	
-	    		else
-	    		{
-	    			String p_id="'"+parent_series_id+"'";
-	    			String z="SELECT brand_id FROM " + stable_name +" WHERE _id =" +p_id;
-	    			System.out.println("PARENT SERIESIS ID QURESTRY TO SELEECT BRAND ");
-	    			System.out.println(z);
-	    			c = db.rawQuery(z,null);
-	    			System.out.println("Printing the brand_id of the parent seried id");
-	    			System.out.println(c);
-	    			
-	    			if (c.moveToFirst())
-	    		  	{
-	    			do {
-	    					parent_brand_id= c.getString(0);
-	    				
-	    					System.out.println("Brand Id of parent Series is: " + parent_brand_id);
-	    					
-	    					
-	    				//int id=Integer.parseInt( sid );
-	    				//System.out.println("String: " + sid);
-	    				//System.out.println("Integer: " + id);
-	    				//String s1= d.getString(8);
-	    	 			//System.out.println("parent_series_id: " + s1);
-	    			  	
-	    					} while (c.moveToNext());
-	    		  	}////end of if (c.moveToFirst())
+	    		String parent_brand_id_string = null;
+	    		String loopParentSeriesIdString = Integer.toString(loopParentSeriesId);;
+	    		///getting BRAND OF PARENT SERIES
+	    		String select_parent_brand="SELECT brand_id FROM series WHERE _id ='" +loopParentSeriesIdString+"'";
+		    	System.out.println(select_parent_brand);
+		    	Cursor parent_brand_cursor=db.rawQuery(select_parent_brand, null); 
+		    	if (parent_brand_cursor.moveToFirst())
+			  	{
+				do {
+						 
+					parent_brand_id_string= parent_brand_cursor.getString(0);
+					System.out.println("Parent Brand ID: " + parent_brand_id_string);
+					
+					} while (parent_brand_cursor.moveToNext());
+			  	}
+	    		
+		    	buildErrorCodetable (loopParentSeriesIdString,parent_brand_id_string );
+		    	
+		    	
+		    	 loopSeriesId=loopParentSeriesId;
+		    	 loopParentSeriesId=getParentSeriesId(loopParentSeriesIdString);
+		    	
+	    		 
 	    		
 	    	}
 	    	
 	    	
+	    	/*
+	    	int parent_series_id_int=Integer.parseInt( parent_series_id );
+	    		
+	    	if (parent_series_id_int!=series_id_int)
+	    	{
+	    		
+	    		
+	    		
+	    	}*/
 	    	
-	    	 //c=db.rawQuery("SELECT * FROM brand_24_errorcode  WHERE  series_id = '128' ", null);
-	    	 //System.out.println(c);
 	    	
+	    	/* DEACTIVATED FOR TIME BEING
+	    		
+	    	String select_parent_brand="SELECT brand_id FROM series WHERE _id ='" +parent_series_id+"'";
+	    	System.out.println(select_parent_brand);
+	    	cursor=db.rawQuery(select_parent_brand, null); 
+	    	if (cursor.moveToFirst())
+		  	{
+			do {
+					 
+					parent_brand_id= cursor.getString(0);
+					System.out.println("Parent Brand ID: " + parent_brand_id);
+				} while (cursor.moveToNext());
+		  	}
 	    	
-		   	
-	    	
-	    		String b_id=Integer.toString(brand_id);
-		    	
-		    	parent_series_id="'"+parent_series_id+"'";
-		    	String parent_table_name = "brand_" + b_id+ "_errorcode";
-		    	String p="SELECT * FROM " +table_name +" WHERE series_id="+parent_series_id;
-		    	System.out.println(p);	
-		    	System.out.println("This is my brand query of parent series id");
-				c = db.rawQuery(p,null);
-				
-				 	
-			   //g=db.rawQuery("SELECT display_panel_code FROM brand_17_errorcode  WHERE  series_id = '95' ", null);
-			   	 //System.out.println(g);
-			   	 
-				series_id="'"+series_id+"'";
-		    	String parent_brand_id_table = "brand_" + parent_brand_id+ "_errorcode";
-			   	 String t= "SELECT * FROM " +parent_brand_id_table +" WHERE series_id="+parent_series_id;
-			   	System.out.println(t);	
-		    	System.out.println("Here I am printing the display panel code ");
-				 g = db.rawQuery(t,null);
-			   	 
-			   	if (g.moveToFirst())
-			  	{
-				do {
-						//String sid= g.getString(0);
-						String display_panel_code= g.getString(2);
-					
-						 System.out.println("display panel code: " + display_panel_code);
-						
-				  	
-				} while (g.moveToNext());
-			  }
-			 
-				
-			adapter = new SimpleCursorAdapter(this, R.layout.list_view, g, new String [] {"display_panel_code"}, new int[] {R.id.name});
+	    			
+	    	/////SELECTING THE PARENt ERROR CODES
+	    	String parent_table_name="brand_" + parent_brand_id+ "_errorcode";
+	    	String select_parent_errorCodes="SELECT _id, series_id, display_panel_code, summary  FROM "+parent_table_name+" WHERE series_id ='" +parent_series_id+"'";
+	    	System.out.println(select_parent_errorCodes);
+	    	parentCursor=db.rawQuery(select_parent_errorCodes, null); 
+	    	if (parentCursor.moveToFirst())
+		  	{
+			do {
+					 
+					String ecode= parentCursor.getString(2);
+					System.out.println("Error Code " + ecode);
+				} while (parentCursor.moveToNext());
+		  	}
+
+	    	adapter = new SimpleCursorAdapter(this, R.layout.list_view, cursor, new String [] {"display_panel_code"}, new int[] {R.id.name});
 			setListAdapter(adapter);
-			db.close();	
-	    	System.out.println("Printing  the value of c " +c);
+
+	    	ListView lv = getListView();
+	    	*/
+
 	    	
-	    
+	    	/*TESTING CODDE START*/
+ 
+		
+	   
+			
+			
+			
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+					R.layout.list_view, errorcode_list);
+	
+	    		
+	    	//adapter1 = new SimpleCursorAdapter(this, R.layout.list_view, cursor, new String [] {"display_panel_code"}, new int[] {R.id.name});
+			setListAdapter(adapter);
+
+	    	ListView lv = getListView();
+
+	        // listening to single list item on click
+	        lv.setOnItemClickListener(new OnItemClickListener() {
+	          public void onItemClick(AdapterView<?> parent, View view,
+	              int position, long error_code_id) {
+	         	        	
+	        	  
+	        	  System.out.println("I M CLCIKED AT POSITION");
+	        	  System.out.println(error_code_id);
+	
+	        	  
+	          	String fullData [][]=new String [arrayListErrorCodesInfo.size()][7];
+		    	fullData=arrayListErrorCodesInfo.toArray(fullData);
+		    	
+		    	/*	
+		    	for (int i=0;i<arrayListErrorCodesInfo.size();i++)
+		    	{
+		    		System.out.println("%%%%%%%%%%%%%%%%%%%%%%% ");
+			    	System.out.println("IN THE LPOOOP Data ");
+			    	System.out.println(fullData[i][0]);
+			    	System.out.println(fullData[i][1]);
+			    	System.out.println(fullData[i][2]);
+			    	System.out.println(fullData[i][3]);
+			    	System.out.println(fullData[i][4]);
+			    	System.out.println(fullData[i][5]);
+			    	System.out.println(fullData[i][6]);
+		    		System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+		    	}*/
+		    	
+		    	/* for a while
+		    		System.out.println("++++++++++++++++++++++++++++++ ");
+			    	System.out.println("Clicked Data ");
+			    	System.out.println(fullData[position][0]);
+			    	System.out.println(fullData[position][1]);
+			    	System.out.println(fullData[position][2]);
+			    	System.out.println(fullData[position][3]);
+			    	System.out.println(fullData[position][4]);
+			    	System.out.println(fullData[position][5]);
+			    	System.out.println(fullData[position][6]);
+		    		System.out.println("++++++++++++++++++++++++++++++ ");
+		    	*/
+
+	        	  
+	        	   
+		    			System.out.println(" error_code_id is  :");
+	        	        System.out.println(error_code_id);
+	        	        
+	        	        Intent intent = new Intent(SelectErrorcode.this,DisplayErrorCode.class);           	    
+	                 	
+	                 	String ecode_brand_id=fullData[position][6];
+	                 	String ecode_id=fullData[position][1];
+	                 	
+	                 	intent.putExtra("errorcode_brand_id",ecode_brand_id );
+	                 	intent.putExtra("error_code_id", ecode_id);
+
+	                 	startActivity(intent);
+	        	    
+	          }
+	        });
 	   
 	
  }
-}
+	
+	
+	public 	int getParentSeriesId (String series_id)
+	{
+		String select_parent_series="SELECT parent_series_id FROM series WHERE _id ='" +series_id+"'";
+    	System.out.println(select_parent_series);
+    	cursor=db.rawQuery(select_parent_series, null);
+    	if (cursor.moveToFirst())
+	  	{
+			do {
+					 
+					parent_series_id= cursor.getString(0);
+					System.out.println("parent_series_id: " + parent_series_id);
+			} while (cursor.moveToNext());
+	  	}
+		
+    	int parentSeriesIdint=Integer.parseInt(parent_series_id);
+    	
+    	return parentSeriesIdint;
+		
+	}///end of function getParentSeriesId (String series_id)
+	
+	
+	public void buildErrorCodetable (String series_id_string , String brand_id_string )
+	{
+		 
+    	
+    	String table_name="brand_" + brand_id_string+ "_errorcode";
+    	String select_errorcodes="SELECT _id, series_id, display_panel_code, led_code, summary  FROM " +table_name +" WHERE series_id='"+series_id_string+"'";;
+    	//System.out.println(select_errorcodes);
+		Cursor c = db.rawQuery(select_errorcodes,null);
+		int row= 0;
+    	if (c.moveToFirst())
+		  	{
+			do {
+				
+				String error_code=c.getString(2);
+				System.out.println(" ERROR CODES ARE "+error_code);	
+				 errorcode_list.add(error_code);
+
+				String errorcode_id=c.getString(0);
+				String series_id=c.getString(1);
+				String display_panel_code=c.getString(2);
+				String led_code=c.getString(3);
+				String summary=c.getString(4);
+				
+				
+				//FILLING THE DATA ARRAY
+				data[0]=Integer.toString(row);  //This is position
+				data[1]=errorcode_id;///this is errorcode id
+				data[2]=series_id;//This is series id
+				data[3]=display_panel_code;/// Th is is display panel Code
+				data[4]=led_code;/// Th is is display panel Code
+				data[5]=summary;
+				data[6]=brand_id_string;
+				arrayListErrorCodesInfo.add(new String []{data[0],data[1],data[2],data[3],data[4],data[5],data[6]});
+				row++;
+			} while (c.moveToNext());
+			
+		  }////ennd of c.mocve to first
+    		
+	}//end of function public void buildErrorCodetable (String series_id_string , String brand_id_string )
+
+
+
+}///end of class
+
