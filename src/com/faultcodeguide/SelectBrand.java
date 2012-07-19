@@ -1,8 +1,5 @@
 package com.faultcodeguide;
  
-
-
-
 import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -39,10 +36,10 @@ public class SelectBrand extends ListActivity {
 		  		do {
 		  				String sid= c.getString(0);
 		  				int id=Integer.parseInt( sid );
-		  				System.out.println("String: " + sid);
-		  			  System.out.println("Integer: " + id);
-		  			  String s1= c.getString(1);
-			  			 System.out.println("Brand Name: " + s1);
+//		  				System.out.println("String: " + sid);
+//		  			  System.out.println("Integer: " + id);
+//		  			  String s1= c.getString(1);
+//			  			 System.out.println("Brand Name: " + s1);
 					  			  
                 } while (c.moveToNext());
                 
@@ -65,16 +62,16 @@ public class SelectBrand extends ListActivity {
          public void onItemClick(AdapterView<?> parent, View view,
              int position, long id) {
         	        	
-        	 	System.out.println(" Brand id is  :");
-       	        System.out.println(id);
-       	           
+//        	 	System.out.println(" Brand id is  :");
+//       	        System.out.println(id);
+//       	           
        	     String product = ((TextView) view).getText().toString();  
        	 
     	
        	       
        	        Cursor cursor = (Cursor) adapter.getItem(position);
        	        String brand_name= cursor.getString(1);
-       	        System.out.println("Brand name"+brand_name);
+       	       // System.out.println("Brand name"+brand_name);
        	    
        	        
        	        /*
