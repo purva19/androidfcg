@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.widget.TextView;
 
 public class DisplayErrorCode extends Activity{
 	protected SQLiteDatabase db;
@@ -13,7 +14,28 @@ public class DisplayErrorCode extends Activity{
 
 	public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
-    	setTitle("Possible Error Codes");
+    	 setContentView(R.layout.error_code);
+    	 setTitle("Possible Error Codes");
+    	
+    	 TextView t= (TextView) findViewById(R.id.textView00);
+    	 t.setText("Error code: ");
+    	 
+         TextView t1= (TextView) findViewById(R.id.textView01);
+    	 t1.setText("E31");
+    	 
+    	 TextView t2= (TextView) findViewById(R.id.textView02);
+    	 t2.setText("Summary: ");
+    	 
+    	 TextView t3= (TextView) findViewById(R.id.textView03);
+    	 t3.setText("Door not closed Door not closed Door not closed Door not closed Door not closed Door not closed Door not closed Door not closed Door not closed Door not closed Door not closed ");
+    	 
+    	 TextView t4= (TextView) findViewById(R.id.textView04);
+    	 t4.setText("Description: ");
+    	 
+    	 TextView t5= (TextView) findViewById(R.id.textView05);
+    	 t5.setText(" The System Error Codes are very broad. Each one can occur in one of many hundreds of locations in the system. Consequently the descriptions of these codes cannot be very specific. Use of these codes requires some amount of investigation and analysis. You need to note both the programmatic and the run-time context in which these errors occur. Because these codes are defined in WinError.h for anyone to use, sometimes the codes are returned by non-system software. Sometimes the code is returned by a function deep in the stack and far removed from your code that is handling the errorThe System Error Codes are very broad. Each one can occur in one of many hundreds of locations in the system. Consequently the descriptions of these codes cannot be very specific. Use of these codes requires some amount of investigation and analysis. You need to note both the programmatic and the run-time context in which these errors occur. Because these codes are defined in WinError.h for anyone to use, sometimes the codes are returned by non-system software. Sometimes the code is returned by a function deep in the stack and far removed from your code that is handling the errorThe System Error Codes are very broad. Each one can occur in one of many hundreds of locations in the system. Consequently the descriptions of these codes cannot be very specific. Use of these codes requires some amount of investigation and analysis. You need to note both the programmatic and the run-time context in which these errors occur. Because these codes are defined in WinError.h for anyone to use, sometimes the codes are returned by non-system software. Sometimes the code is returned by a function deep in the stack and far removed from your code that is handling the errorThe System Error Codes are very broad. Each one can occur in one of many hundreds of locations in the system. Consequently the descriptions of these codes cannot be very specific. Use of these codes requires some amount of investigation and analysis. You need to note both the programmatic and the run-time context in which these errors occur. Because these codes are defined in WinError.h for anyone to use, sometimes the codes are returned by non-system software. Sometimes the code is returned by a function deep in the stack and far removed from your code that is handling the error.");
+    	 
+    	
     	
     	db = (new DataBaseHelper(this)).getReadableDatabase();
 		Intent intent = getIntent();
@@ -59,10 +81,23 @@ public class DisplayErrorCode extends Activity{
 				System.out.println("possible_solution are : " + possible_solution);
 				System.out.println("remarks are :" +remarks);
 				
+				
+			  //t1.setText(dispaly_panel_code);
+			 //System.out.println(t1);	
+			  	
+			  //t3.setText(summary);
+			  //System.out.println(t3);	
+			  	
+			  	//t5.setText(description);
+			  	//System.out.println(t5);	
 			
 		}while (cursor.moveToNext());
  
 	  	}
+	  	System.out.println("!!!!!!!!!!!!!!!!");
+	  	
+	  	
 	  	}
 	  	
+
 }
