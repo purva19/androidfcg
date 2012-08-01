@@ -35,8 +35,24 @@ public class DisplayErrorCode extends Activity{
     	 TextView t5= (TextView) findViewById(R.id.textView05);
     	 t5.setText(" The System Error Codes are very broad. Each one can occur in one of many hundreds of locations in the system. Consequently the descriptions of these codes cannot be very specific. Use of these codes requires some amount of investigation and analysis. You need to note both the programmatic and the run-time context in which these errors occur. Because these codes are defined in WinError.h for anyone to use, sometimes the codes are returned by non-system software. Sometimes the code is returned by a function deep in the stack and far removed from your code that is handling the errorThe System Error Codes are very broad. Each one can occur in one of many hundreds of locations in the system. Consequently the descriptions of these codes cannot be very specific. Use of these codes requires some amount of investigation and analysis. You need to note both the programmatic and the run-time context in which these errors occur. Because these codes are defined in WinError.h for anyone to use, sometimes the codes are returned by non-system software. Sometimes the code is returned by a function deep in the stack and far removed from your code that is handling the errorThe System Error Codes are very broad. Each one can occur in one of many hundreds of locations in the system. Consequently the descriptions of these codes cannot be very specific. Use of these codes requires some amount of investigation and analysis. You need to note both the programmatic and the run-time context in which these errors occur. Because these codes are defined in WinError.h for anyone to use, sometimes the codes are returned by non-system software. Sometimes the code is returned by a function deep in the stack and far removed from your code that is handling the errorThe System Error Codes are very broad. Each one can occur in one of many hundreds of locations in the system. Consequently the descriptions of these codes cannot be very specific. Use of these codes requires some amount of investigation and analysis. You need to note both the programmatic and the run-time context in which these errors occur. Because these codes are defined in WinError.h for anyone to use, sometimes the codes are returned by non-system software. Sometimes the code is returned by a function deep in the stack and far removed from your code that is handling the error.");
     	 
+    	 TextView t6= (TextView) findViewById(R.id.textView06);
+    	 t6.setText("Possible cause: ");
+    	 
+    	 TextView t7= (TextView) findViewById(R.id.textView07);
+    	 t7.setText("The System Error Codes are very broad. Each one can occur in one of many hundreds of locations in the system. Consequently the descriptions of these codes cannot be very specific. Use of these codes requires some amount of investigation and analysis. You need to note both the programmatic and the run-time context in which these errors occur. Because these codes are defined in WinError.h for anyone to use, sometimes the codes are returned by non-system software. Sometimes the code is returned by a function deep in the stack and far removed from your code that is handling the errorThe System Error Codes are very broad. Each one can occur in one of many hundreds of locations in the system. Consequently the descriptions of these codes cannot be very specific. Use of these codes requires some amount of investigation and analysis. You need to note both the programmatic and the run-time context in which these errors occur. Because these codes are defined in WinError.h for anyone to use, sometimes the codes are returned by non-system software. Sometimes the code is returned by a function deep in the stack and far removed from your code that is handling the errorThe System Error Codes are very broad. Each one can occur in one of many hundreds of locations in the system. Consequently the descriptions of these codes cannot be very specific. Use of these codes requires some amount of investigation and analysis. You need to note both the programmatic and the run-time context in which these errors occur. Because these codes are defined in WinError.h for anyone to use, sometimes the codes are returned by non-system software. ");
     	
-    	
+    	 TextView t8= (TextView) findViewById(R.id.textView08);
+    	 t8.setText("Possible solution: ");
+    	 
+    	 TextView t9= (TextView) findViewById(R.id.textView09);
+    	 t9.setText("The System Error Codes are very broad. Each one can occur in one of many hundreds of locations in the system. Consequently the descriptions of these codes cannot be very specific. Use of these codes requires some amount of investigation and analysis. You need to note both the programmatic and the run-time context in which these errors occur. Because these codes are defined in WinError.h for anyone to use, sometimes the codes are returned by non-system software. Sometimes the code is returned by a function deep in the stack and far removed from your code that is handling the errorThe System Error Codes are very broad. Each one can occur in one of many hundreds of locations in the system. Consequently the descriptions of these codes cannot be very specific. Use of these codes requires some amount of investigation and analysis. You need to note both the programmatic and the run-time context in which these errors occur. Because these codes are defined in WinError.h for anyone to use, sometimes the codes are returned by non-system software. Sometimes the code is returned by a function deep in the stack and far removed from your code that is handling the errorThe System Error Codes are very broad. Each one can occur in one of many hundreds of locations in the system. Consequently the descriptions of these codes cannot be very specific. Use of these codes requires some amount of investigation and analysis. You need to note both the programmatic and the run-time context in which these errors occur. Because these codes are defined in WinError.h for anyone to use, sometimes the codes are returned by non-system software. ");
+    	 
+    	 TextView t10= (TextView) findViewById(R.id.textView10);
+    	 t10.setText("Remarks: ");
+    	 
+    	 TextView t11= (TextView) findViewById(R.id.textView11);
+    	 t11.setText("The System Error Codes are very broad. Each one can occur in one of many hundreds of locations in the system. Consequently the descriptions of these codes cannot be very specific. Use of these codes requires some amount of investigation and analysis. You need to note both the programmatic and the run-time context in which these errors occur. Because these codes are defined in WinError.h for anyone to use, sometimes the codes are returned by non-system software. Sometimes the code is returned by a function deep in the stack and far removed from your code that is handling the errorThe System Error Codes are very broad. Each one can occur in one of many hundreds of locations in the system. Consequently the descriptions of these codes cannot be very specific. Use of these codes requires some amount of investigation and analysis. You need to note both the programmatic and the run-time context in which these errors occur. Because these codes are defined in WinError.h for anyone to use, sometimes the codes are returned by non-system software. Sometimes the code is returned by a function deep in the stack and far removed from your code that is handling the errorThe System Error Codes are very broad. Each one can occur in one of many hundreds of locations in the system. Consequently the descriptions of these codes cannot be very specific. Use of these codes requires some amount of investigation and analysis. You need to note both the programmatic and the run-time context in which these errors occur. Because these codes are defined in WinError.h for anyone to use, sometimes the codes are returned by non-system software. ");
+    	 
     	db = (new DataBaseHelper(this)).getReadableDatabase();
 		Intent intent = getIntent();
 		System.out.println("**********************************************");
@@ -82,16 +98,25 @@ public class DisplayErrorCode extends Activity{
 				System.out.println("remarks are :" +remarks);
 				
 				
-			  //t1.setText(dispaly_panel_code);
+			 //t1.setText(dispaly_panel_code);
 			 //System.out.println(t1);	
 			  	
-			  //t3.setText(summary);
-			  //System.out.println(t3);	
+			 //t3.setText(summary);
+			 //System.out.println(t3);	
 			  	
-			  	//t5.setText(description);
-			  	//System.out.println(t5);	
+			 //t5.setText(description);
+			 //System.out.println(t5);	
+			 
+			 //t7.setText(possible_cause);
+			 //System.out.println(t7);
+			 
+			 //t9.setText(possible_solution);
+			 //System.out.println(t9);
+			 
+			 //t11.setText(remarks);
+			 //System.out.println(t11);
 			
-		}while (cursor.moveToNext());
+		 }while (cursor.moveToNext());
  
 	  	}
 	  	System.out.println("!!!!!!!!!!!!!!!!");
