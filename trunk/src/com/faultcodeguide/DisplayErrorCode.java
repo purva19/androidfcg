@@ -1,22 +1,103 @@
 package com.faultcodeguide;
 
+
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class DisplayErrorCode extends Activity{
 	protected SQLiteDatabase db;
 	protected Cursor cursor;
 
+	String led_code;
+	 int brand_id;
+	
+	AnimationDrawable [] lightsAnimation=new AnimationDrawable [9];
+	 //ImageView [] light = (ImageView) findViewById(R.id.test_image1);
+	ImageView [] light = new ImageView [9];
+	  
+	 
 
 	public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
     	 setContentView(R.layout.error_code);
     	 setTitle("Possible Error Codes");
     	
+    	 light[0]=(ImageView) findViewById(R.id.test_image1);
+    	 light[1]=(ImageView) findViewById(R.id.test_image2);
+    	 light[2]=(ImageView) findViewById(R.id.test_image3);
+    	 light[3]=(ImageView) findViewById(R.id.test_image4);
+    	 light[4]=(ImageView) findViewById(R.id.test_image5);
+    	 light[5]=(ImageView) findViewById(R.id.test_image6);
+    	 light[6]=(ImageView) findViewById(R.id.test_image7);
+    	 light[7]=(ImageView) findViewById(R.id.test_image8);
+    	 light[8]=(ImageView) findViewById(R.id.test_image9);
+    	 
+    	 
+    	 led_code="321333333";
+      	 Character  led_char_code;
+    	 int led_int_code;
+    	 for (int i=0;i<led_code.length();i++)
+    	 {
+	
+    		 
+    		 led_char_code=led_code.charAt(i);
+    		 System.out.println("Charecter Value");
+    		 System.out.println(led_char_code);
+    		  
+    		 led_int_code=Integer.parseInt(led_char_code.toString());
+    		 System.out.println("Integer Value");
+    		 System.out.println(led_int_code);
+    		 
+    		 
+    		 switch (led_int_code) {
+             case 1:  ////OFF led 
+            	 	
+            	 //light[i].setBackgroundResource(R.drawable.nolit2x);
+            	 light[i].setImageResource(R.drawable.nolight);
+                    break;
+             case 2: /////ON led 
+            	 light[i].setImageResource(R.drawable.light);
+            	 	break;
+ 
+            	 	
+             case 3:  //// Bliunkonh led
+            	 	light[i].setImageResource(R.drawable.blinkinglight);
+            	 	break;
+              
+             
+             default: /// wronf value
+            	 		break;
+             }///end of switch statehmeyt
+    		 
+    		 
+	       	 
+	         // lightsAnimation1=(AnimationDrawable) light1.getDrawable();    
+	    		 
+    		 
+    		 
+			 light[i].setVisibility(View.VISIBLE);
+			 lightsAnimation[i]=(AnimationDrawable) light[i].getDrawable(); 
+    		 
+    		 System.out.println("**********************************");
+    		 
+			}///end of for loop i to read the led code
+    	 
+    	 
+    	 
+    	 
+    	 
+    	 
+    	 
+
+ 	 
     	 TextView t= (TextView) findViewById(R.id.textView00);
     	 t.setText("Error code: ");
     	 
@@ -71,6 +152,8 @@ public class DisplayErrorCode extends Activity{
 		System.out.println(error_code_id_int);
 		System.out.println("**********************************************");
 		
+		
+   	 
 		String table_name="brand_" + brand_id_string+ "_errorcode";
 		String select_errorcodes="SELECT  display_panel_code,number_of_leds,led_code,summary,description,possible_cause,possible_solution,remarks  FROM " +table_name +" WHERE _id='"+error_code_id_string+"'";
 		cursor = db.rawQuery(select_errorcodes,null);
@@ -98,23 +181,23 @@ public class DisplayErrorCode extends Activity{
 				System.out.println("remarks are :" +remarks);
 				
 				
-			 //t1.setText(dispaly_panel_code);
-			 //System.out.println(t1);	
-			  	
-			 //t3.setText(summary);
-			 //System.out.println(t3);	
-			  	
-			 //t5.setText(description);
-			 //System.out.println(t5);	
-			 
-			 //t7.setText(possible_cause);
-			 //System.out.println(t7);
-			 
-			 //t9.setText(possible_solution);
-			 //System.out.println(t9);
-			 
-			 //t11.setText(remarks);
-			 //System.out.println(t11);
+//			 t1.setText(dispaly_panel_code);
+//			 System.out.println(t1);	
+//			  	
+//			 t3.setText(summary);
+//			 System.out.println(t3);	
+//			  	
+//			 t5.setText(description);
+//			 System.out.println(t5);	
+//			 
+//			 t7.setText(possible_cause);
+//			 System.out.println(t7);
+//			 
+//			 t9.setText(possible_solution);
+//			 System.out.println(t9);
+//			 
+//			 t11.setText(remarks);
+//			 System.out.println(t11);
 			
 		 }while (cursor.moveToNext());
  
@@ -122,7 +205,25 @@ public class DisplayErrorCode extends Activity{
 	  	System.out.println("!!!!!!!!!!!!!!!!");
 	  	
 	  	
-	  	}
-	  	
+  		 
 
-}
+	  	
+	  	}///end of onCreate
+	
+		public void onWindowFocusChanged(boolean hasFocus) {
+			super.onWindowFocusChanged(hasFocus);	
+	    
+			for (int i=0;i<led_code.length();i++)
+			{
+				lightsAnimation[i].start();
+	    	
+				}////end of for
+	    
+      	}///////	public void onWindowFocusChanged(boolean hasFocus) {
+
+
+	     
+        	
+	
+	
+}///////end of class

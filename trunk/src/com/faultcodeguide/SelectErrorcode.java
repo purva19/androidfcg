@@ -4,11 +4,13 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -31,15 +33,16 @@ public class SelectErrorcode extends ListActivity{
 	protected ListAdapter adapter;
 	protected String parent_series_id;
 	
+	
 	protected String error_code_brand_id;
 	protected ArrayList<String []> arrayListErrorCodesInfo = new ArrayList<String[]>(); 
  	protected List<String> errorcode_list = new ArrayList<String>();
  	protected String [] data =new String [7];
  	
-	int series_id;
 	
 	public void onCreate(Bundle savedInstanceState) {
 	    	super.onCreate(savedInstanceState);
+	    	
 	    	db = (new DataBaseHelper(this)).getReadableDatabase();
 	    	Intent intent = getIntent();
 	    	int series_id_int=intent.getExtras().getInt("sending_series_id");
@@ -54,6 +57,9 @@ public class SelectErrorcode extends ListActivity{
 
 	    	System.out.println("Array List Size ");
 	    	System.out.println(arrayListErrorCodesInfo.size());
+	    	
+	    
+	    	 
 		    	
 	    	///*INITIALIZATION
 	    	int loopParentSeriesId=getParentSeriesId(series_id_string);
@@ -138,10 +144,9 @@ public class SelectErrorcode extends ListActivity{
 	    	
 	    	/*TESTING CODDE START*/
  
-		
 	   
 			
-			
+	    	 
 			
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 					R.layout.list_view, errorcode_list);
@@ -210,9 +215,9 @@ public class SelectErrorcode extends ListActivity{
 	        	    
 	          }
 	        });
-	   
-	
  }
+	
+	
 	
 	
 	public 	int getParentSeriesId (String series_id)
@@ -234,6 +239,8 @@ public class SelectErrorcode extends ListActivity{
     	return parentSeriesIdint;
 		
 	}///end of function getParentSeriesId (String series_id)
+	
+	
 	
 	
 	public void buildErrorCodetable (String series_id_string , String brand_id_string )
@@ -270,12 +277,14 @@ public class SelectErrorcode extends ListActivity{
 				data[6]=brand_id_string;
 				arrayListErrorCodesInfo.add(new String []{data[0],data[1],data[2],data[3],data[4],data[5],data[6]});
 				row++;
+				
 			} while (c.moveToNext());
 			
-		  }////ennd of c.mocve to first
-    		
+			
+			
+		  }////end of c.move to first
+    	
 	}//end of function public void buildErrorCodetable (String series_id_string , String brand_id_string )
-
 
 
 }///end of class
