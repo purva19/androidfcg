@@ -11,30 +11,45 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int front=0x7f020000;
-        public static final int ic_launcher=0x7f020001;
+        public static final int blinkinglight=0x7f020000;
+        public static final int front=0x7f020001;
+        public static final int ic_launcher=0x7f020002;
+        public static final int light=0x7f020003;
+        public static final int lit=0x7f020004;
+        public static final int nolight=0x7f020005;
+        public static final int nolit2x=0x7f020006;
     }
     public static final class id {
-        public static final int button1=0x7f05000e;
-        public static final int name=0x7f05000c;
-        public static final int textView00=0x7f050000;
-        public static final int textView01=0x7f050001;
-        public static final int textView02=0x7f050002;
-        public static final int textView03=0x7f050003;
-        public static final int textView04=0x7f050004;
-        public static final int textView05=0x7f050005;
-        public static final int textView06=0x7f050006;
-        public static final int textView07=0x7f050007;
-        public static final int textView08=0x7f050008;
-        public static final int textView09=0x7f050009;
-        public static final int textView10=0x7f05000a;
-        public static final int textView11=0x7f05000b;
-        public static final int uk=0x7f05000d;
+        public static final int button1=0x7f050017;
+        public static final int name=0x7f050015;
+        public static final int test_image1=0x7f050000;
+        public static final int test_image2=0x7f050001;
+        public static final int test_image3=0x7f050002;
+        public static final int test_image4=0x7f050003;
+        public static final int test_image5=0x7f050004;
+        public static final int test_image6=0x7f050005;
+        public static final int test_image7=0x7f050006;
+        public static final int test_image8=0x7f050007;
+        public static final int test_image9=0x7f050008;
+        public static final int textView00=0x7f050009;
+        public static final int textView01=0x7f05000a;
+        public static final int textView02=0x7f05000b;
+        public static final int textView03=0x7f05000c;
+        public static final int textView04=0x7f05000d;
+        public static final int textView05=0x7f05000e;
+        public static final int textView06=0x7f05000f;
+        public static final int textView07=0x7f050010;
+        public static final int textView08=0x7f050011;
+        public static final int textView09=0x7f050012;
+        public static final int textView10=0x7f050013;
+        public static final int textView11=0x7f050014;
+        public static final int uk=0x7f050016;
     }
     public static final class layout {
         public static final int error_code=0x7f030000;
-        public static final int list_view=0x7f030001;
-        public static final int main=0x7f030002;
+        public static final int layout=0x7f030001;
+        public static final int list_view=0x7f030002;
+        public static final int main=0x7f030003;
     }
     public static final class string {
         public static final int Button_Title=0x7f040002;
