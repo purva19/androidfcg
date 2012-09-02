@@ -5,7 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -18,10 +18,11 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     //The Android's default system path of your application database.
     String DB_PATH ="/data/data/ com.faultcodeguide/databases/";
 
-    private static String DB_NAME = "FaultCodeGuide.db";
-
+    private static String DB_NAME = "faultcodeguide.db";
+    public static final String KEY_ROWID = "_id";
     private SQLiteDatabase myDataBase; 
-
+    private DataBaseHelper DBHelper;
+    private SQLiteDatabase db;
     private final Context myContext;
 
     /**
@@ -45,25 +46,29 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
     	if(dbExist){
     		//do nothing - database already exist
-    		System.out.print("DATABASE IS Already THERE");
-    		
-    		
     	}else{
     		
     		//By calling this method and empty database will be created into the default system path
                //of your application so we are gonna be able to overwrite that database with our database.
-        	this.getReadableDatabase();
+        	this.getWritableDatabase();
 
         	try {
         		System.out.println("COPY DATABASE CALLED ");
     			copyDataBase();
-
+    			myDataBase.rawQuery("UPDATE purchase_details SET expiry_date = '20-20-201' WHERE _id=1", null);
+    	    	long rowId=1;
+    	    	ContentValues args = new ContentValues();
+    	    	args.put("expiry_date", "20121021");
+    	    	args.put("purchase_date", "989898");
+    	    	args.put("duration_days", "7777");
+    			myDataBase.update("purchase_details", args,	KEY_ROWID + "=" + rowId, null);    	
+    	
     		} catch (IOException e) {
 
         		throw new Error("Error copying database");
 
         	}
-    	}
+    	} 
 
     }
 
@@ -77,7 +82,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
     	try{
     		String myPath = DB_PATH + DB_NAME;
-    		checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+    		checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
 
     	}catch(SQLiteException e){
 
@@ -128,9 +133,20 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
     	//Open the database
         String myPath = DB_PATH + DB_NAME;
-    	myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
-
-    }
+    	myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
+    	
+    	
+    	//myDbHelper.rawQuery("UPDATE purchase_details SET expiry_date = '20-20-2012' WHERE _id='1'", null);
+    	myDataBase.rawQuery("UPDATE purchase_details SET expiry_date = '20-20-201' WHERE _id=1", null);
+    	long rowId=1;
+    	ContentValues args = new ContentValues();
+    	args.put("expiry_date", "20121021");
+    	args.put("purchase_date", "989898");
+    	args.put("duration_days", "7777");
+    	myDataBase.update("purchase_details", args,	KEY_ROWID + "=" + rowId, null);    	
+    	
+    	
+}
 
     @Override
 	public synchronized void close() {
@@ -139,7 +155,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     		    myDataBase.close();
 
     	    super.close();
-
+ 
 	}
 
 	@Override
@@ -147,13 +163,24 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
 	}
 
-	@Override
+	@Override 
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+		
+		String myPath = DB_PATH + DB_NAME;
+myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
+    	
+   	
+    	
+    	
 	}
- //return cursor
+ //return cursor 
 	public Cursor query(String table,String[] columns, String selection,String[] selectionArgs,String groupBy,String having,String orderBy){
-		return myDataBase.query("brand", null, null, null, null, null, null);
+		return myDataBase.query("purchase_details", null, null, null, null, null, null);
 
-	}
+	} 
+	
+	
+	
+
+	
 }
