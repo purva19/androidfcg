@@ -18,7 +18,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     //The Android's default system path of your application database.
     String DB_PATH ="/data/data/ com.faultcodeguide/databases/";
 
-    private static String DB_NAME = "faultcodeguide.db";
+    private static String DB_NAME = "FaultCodeGuide.db";
     public static final String KEY_ROWID = "_id";
     private SQLiteDatabase myDataBase; 
     private DataBaseHelper DBHelper;
@@ -175,7 +175,7 @@ myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READW
 	}
  //return cursor 
 	public Cursor query(String table,String[] columns, String selection,String[] selectionArgs,String groupBy,String having,String orderBy){
-		return myDataBase.query("purchase_details", null, null, null, null, null, null);
+		return myDataBase.query("brand", null, null, null, null, null, null);
 
 	} 
 	
