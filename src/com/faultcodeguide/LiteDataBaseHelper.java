@@ -13,12 +13,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DataBaseHelper extends SQLiteOpenHelper{
+public class LiteDataBaseHelper extends SQLiteOpenHelper{
 
     //The Android's default system path of your application database.
     String DB_PATH ="/data/data/ com.faultcodeguide/databases/";
 
-    private static String DB_NAME = "FaultCodeGuide.db";
+    private static String DB_NAME = "LiteFaultCodeGuide.db";
     public static final String KEY_ROWID = "_id";
     private SQLiteDatabase myDataBase; 
     private DataBaseHelper DBHelper;
@@ -31,7 +31,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
      * Takes and keeps a reference of the passed context in order to access to the application assets and resources.
      * @param context
      */
-    public DataBaseHelper(Context context) {
+    public LiteDataBaseHelper(Context context) {
 
     	super(context, DB_NAME, null, 1);
         this.myContext = context;
@@ -55,7 +55,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     		
     		//By calling this method and empty database will be created into the default system path
                //of your application so we are gonna be able to overwrite that database with our database.
-        	this.getWritableDatabase(); 
+        	this.getWritableDatabase();
 
         	try {
         		System.out.println("COPY DATABASE CALLED ");
@@ -71,13 +71,26 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 //    	    	args.put("purchase_date", "989898");
 //    	    	args.put("duration_days", "7777");
 //    			myDataBase.update("purchase_details", args,	KEY_ROWID + "=" + rowId, null);    	
-   		} catch (IOException e) {
+    	
+    			
+    			
+    			
+    		} catch (IOException e) {
 
         		throw new Error("Error copying database");
 
         	}
     	} ///end of ellse
     	
+    	
+    	
+
+	
+    	
+    	
+    	
+    	
+
     }///end of function copy database
 
 /**
@@ -107,6 +120,11 @@ public String getExpiryDate() {
 
 	return sid;
 }//end of method get expiry date
+
+
+
+
+
 
 
     /**
@@ -162,7 +180,14 @@ public String getExpiryDate() {
     	//Close the streams
     	myOutput.flush();
     	myOutput.close();
-    	myInput.close();	
+    	myInput.close();
+    	
+    	
+    	
+    	
+    	
+    	
+    	
 
     }
 
@@ -207,8 +232,7 @@ public String getExpiryDate() {
 		
 		String myPath = DB_PATH + DB_NAME;
 myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
-    	    	
-    }
-
+ 	
+	}
 
 }

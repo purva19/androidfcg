@@ -17,7 +17,7 @@ public class DisplayErrorCode extends Activity{
 
 	String led_code;
 	 int brand_id;
-	
+	 
 	AnimationDrawable [] lightsAnimation=new AnimationDrawable [9];
 	 //ImageView [] light = (ImageView) findViewById(R.id.test_image1);
 	ImageView [] light = new ImageView [9];
